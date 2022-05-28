@@ -2,7 +2,7 @@ import React from 'react';
 import Basket from './components/Basket';
 import BasketItem from './components/BasketItem';
 import ProductItem from './components/ProductItem';
-import allProductsData from "./data/productscats"
+import allProductsData from "./data/products"
 import customers  from "./data/customers"
 
 export default function MiddlePage(){
