@@ -3,14 +3,13 @@ import Basket from './components/Basket';
 import BasketItem from './components/BasketItem';
 import ProductItem from './components/ProductItem';
 import allProductsData from "./data/productscats"
-import customersData  from "./data/customers"
+import customers  from "./data/customers"
 
 export default function MiddlePage(){
-    const [allProducts,setAllProducts] = React.useState(allProductsData)   
-    const [products,setProducts] = React.useState([...allProducts[0].products])
+
+    const [products,setProducts] = React.useState([...allProductsData[0].products])
     const [basketProducts,setBasketProducts] = React.useState([])
     const [basketTotal,setBasketTotal] = React.useState(0);
-    const [customers,setCustomers] = React.useState(customersData);
     const [basketCustomer,setBasketCustomer] = React.useState(customers[0]);
 
     let basket = {    
@@ -18,7 +17,7 @@ export default function MiddlePage(){
         customer:{...basketCustomer},
         products:[...basketProducts]
     };
-    
+
     /** PRODUCT CATEGORIES */
     // category bir kez oluşacağı icin const
     const categories = allProducts.map(item=>
@@ -66,7 +65,7 @@ export default function MiddlePage(){
     }
 
     function minusClicked(product){
-        product.amount == 1 
+        product.amount === 1 
                     ? removeFromBasket(product) 
                     : updateBasket("decrease",product);
     }
@@ -86,7 +85,7 @@ export default function MiddlePage(){
     function productClicked(product){
         // add new product to basketProducts or
         // update amount of product in basketProducts
-        const isExist = basketProducts.filter(item=>item.id==product.id);
+        const isExist = basketProducts.filter(item=>item.id===product.id);
         isExist.length 
                     ? updateBasket("increase",isExist[0]) 
                     : addToBasket(product);
@@ -100,10 +99,10 @@ export default function MiddlePage(){
     /** OPERATIONS */
 
     function updateBasket(op,product){
-        product.amount = (op=="increase") ? product.amount+1 : product.amount-1
+        product.amount = (op==="increase") ? product.amount+1 : product.amount-1
         product.total = product.price * product.amount;
         setBasketProducts(prevBasketProducts=>[...prevBasketProducts]);
-        op=="increase" 
+        op==="increase" 
         ? setBasketTotal(prevTotal=>prevTotal+product.price)
         : setBasketTotal(prevTotal=>prevTotal-product.price);
     }
@@ -117,7 +116,7 @@ export default function MiddlePage(){
     function removeFromBasket(product){
         // silmek yerine,  silinecek id  dısında 
         // herseyi sıralayıp tekrar array yapıyoruz
-        setBasketProducts(prevBasketProducts=>prevBasketProducts.filter(item=> item.id != product.id));
+        setBasketProducts(prevBasketProducts=>prevBasketProducts.filter(item=> item.id !== product.id));
         setBasketTotal(prevTotal=>prevTotal-product.price);
     }
 
