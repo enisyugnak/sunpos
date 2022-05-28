@@ -1,4 +1,4 @@
-export default[
+const productscats = [ 
   {
     "id":0,
     "category" : "Meşrubat",
@@ -555,3 +555,5 @@ export default[
     ]      
   }
 ]
+
+export default productscats

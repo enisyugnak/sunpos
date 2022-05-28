@@ -1,4 +1,4 @@
-export default[
+const customers = [
   {
     "id": 1,
     "first_name": "Öner",
@@ -200,3 +200,5 @@ export default[
     "year": 2022
   }
 ]
+
+export default customers
