@@ -9,7 +9,7 @@ const customers = [
   },
   {
     "id": 2,
-    "first_name": "Anıl",
+    "first_name": "Mahmudiyeli",
     "last_name": "Kocabıyık",
     "category": "",
     "month": "Mys",
