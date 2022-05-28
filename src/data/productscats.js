@@ -1,4 +1,4 @@
-const productscats = [ 
+const products = [ 
   {
     "id":0,
     "category" : "Meşrubat",
@@ -556,4 +556,4 @@ const productscats = [
   }
 ]
 
-export default productscats
+export default products
