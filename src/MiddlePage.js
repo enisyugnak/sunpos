@@ -20,7 +20,7 @@ export default function MiddlePage(){
 
     /** PRODUCT CATEGORIES */
     // category bir kez oluşacağı icin const
-    const categories = allProducts.map(item=>
+    const categories = products.map(item=>
         <div 
             className ="cat--item"
             key={item.id}
@@ -126,7 +126,7 @@ export default function MiddlePage(){
     }
 
     function allProductsClicked(){
-        setProducts(allProducts
+        setProducts(products
             .map(category=>category.products
                 .map(item=>({...item,category:category.category})))
                 .flat()
