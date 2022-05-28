@@ -12,6 +12,7 @@ export default function MiddlePage(){
     const [basketTotal,setBasketTotal] = React.useState(0);
     const [basketCustomer,setBasketCustomer] = React.useState(customers[0]);
 
+    console.log(products)
     let basket = {    
         total:basketTotal,
         customer:{...basketCustomer},
@@ -20,7 +21,7 @@ export default function MiddlePage(){
 
     /** PRODUCT CATEGORIES */
     // category bir kez oluşacağı icin const
-    const categories = products.map(item=>
+    const categories = allProductsData.map(item=>
         <div 
             className ="cat--item"
             key={item.id}
@@ -126,7 +127,7 @@ export default function MiddlePage(){
     }
 
     function allProductsClicked(){
-        setProducts(products
+        setProducts(allProductsData
             .map(category=>category.products
                 .map(item=>({...item,category:category.category})))
                 .flat()
