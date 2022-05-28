@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.row{
+  margin-top:20px;
+}
+.col {
+  float: left;
+  width: 33.33%;
+  height: auto;
+}
+
+
+.left {
+  width: 20%;
+}
+.right {
+  width: 35%;
+}
+.middle {
+  width: 45%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.category--menu{
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto;
+}
+.cats{
+  display: flex;
+  flex-direction: row;
+}
+.cat--item{
+  cursor:pointer;
+  flex: 0 0 auto;         /* ADD */
+  display: flex;          /* ADD */
+  border:1px solid grey;
+  padding:8px;
+  margin:1px;
+}
+
+
+.prod--page{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+
+.card--item{
+  min-width: 90px;
+  cursor: pointer;
+  height: 100%;
+  border:1px solid gray;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  font-size: 14px;
+  background-color: white;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.basket--item{
+  display: block;
+  padding:8px;
+  margin-bottom:2px;
+  border-bottom: 1px solid grey;
+}
+
+.basket--item--buttons{
+  margin-right:4px;
+}
+.basket--item--buttons >button{
+  cursor: pointer;
+  margin-right:4px;
+}
+.basket--title{
+  align-items: center;
+  border-bottom: 1px solid black;
+  font-weight: bold;
+  padding-bottom: 8px;
+}
+
+.basket--clear{
+  cursor: pointer;
+  float: right;
+  margin-right: 20px;
+}
