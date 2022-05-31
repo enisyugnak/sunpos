@@ -6,38 +6,35 @@ import customers  from "./data/customers"
 
 export default function MiddlePage(){
 
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState(allProductsData[0].id);
-    const selectedCategory = selectedCategoryId != -1 
-            ? getProducts()
-            : getAllProducts();
-
-    const [selectedCustomerId,setSelectedCustomerId] = React.useState(null);
-    const selectedCustomer = selectedCustomerId !=null
-            ? customers.find(cust=> cust.id === selectedCustomerId)
-            : {}
-
+    const [products,setProducts] = React.useState([...allProductsData[0].products])
+    const [categoriesData,setCategoriesData] = React.useState(allProductsData
+                                                                .map(category=>({
+                                                                    id:category.id,
+                                                                    title:category.category
+                                                                })));
     const [basketProducts,setBasketProducts] = React.useState([])
-    const [basketTotal,setBasketTotal] = React.useState(0);    
+    const [basketTotal,setBasketTotal] = React.useState(0);
+    const [basketCustomer,setBasketCustomer] = React.useState(customers[0]);
 
     /** BASKET to save */
     let basket = {    
         total:basketTotal,
-        customer:{...selectedCustomer},
+        customer:{...basketCustomer},
         products:[...basketProducts]
     };
 
     /** PRODUCT CATEGORIES */
-    const categories = allProductsData.map(item=>
+    const categories = categoriesData.map(item=>
         <div 
             className ="cat--item"
             key={item.id}
             onClick={()=>catClicked(item.id)}>
-            {item.category}
+            {item.title}
         </div>
     )
     
     /** CHOOSEN (Current) PRODUCTS LIST */
-    let productElements = selectedCategory.products.map(product=>
+    let productElements = products.map(product=>
         <ProductItem
             key={product.id}
             product={product}
@@ -51,26 +48,10 @@ export default function MiddlePage(){
         <div 
             className ="cat--item"
             key={customer.id}
-            onClick={()=>customerClicked(customer.id)}>
+            onClick={()=>customerClicked(customer)}>
             {customer.first_name}
          </div>
         )
-
-    function getProducts(){
-        return allProductsData.find((c) => c.id === selectedCategoryId)
-    }
-    
-    function getAllProducts(){
-        return {    id:-1,
-                    category:"All Products",
-                    products: allProductsData
-                        .map(category=>category.products
-                        .map(item=>({...item,category:category.category})))
-                        .flat()
-                        .sort(compare)
-                }
-    }
-
 
     /** BUTTON ACTIONS */
 
@@ -88,24 +69,33 @@ export default function MiddlePage(){
         updateBasket("CLEAR");
     }
 
-    function catClicked(cat_id){
-        setSelectedCategoryId(cat_id);
+    function catClicked(id){
+        // show products of choosen category
+        
+        setSelectedCategoryId(id);
+        //let list = allProductsData.filter(category=>(category.id === id))
+        //setProducts([...list[0].products])
     }
 
-    function customerClicked(cust_id){
-        setSelectedCustomerId(cust_id);
+    function customerClicked(customer){
+        setBasketCustomer(customer);
+    }
+
+    function allProductsClicked(){
+        setProducts(allProductsData
+            .map(category=>category.products
+                .map(item=>({...item,category:category.category})))
+                .flat()
+                .sort(compare))
     }
 
     function productClicked(product){
         // add new product to basketProducts or
         // update amount of product in basketProducts
-        //const isExist = basketProducts.filter(item=>item.id===product.id);
-
-        const isExist  = basketProducts.find(item=>item.id===product.id);
-
-        isExist 
-            ? updateBasket("INCREASE",isExist) 
-            : updateBasket("ADD",product)
+        const isExist = basketProducts.filter(item=>item.id===product.id);
+        isExist.length 
+                    ? updateBasket("INCREASE",isExist[0]) 
+                    : updateBasket("ADD",product)
     }
      
     function saveClicked(){
@@ -177,6 +167,7 @@ export default function MiddlePage(){
         <div>
         <div className='row'>
             <div className="col cats">
+                <div className ="cat--item" onClick={allProductsClicked}>All Products</div>
                 {categories}
             </div>
         </div>
@@ -184,12 +175,10 @@ export default function MiddlePage(){
             <div className="col left">
                 <div>{customerElements}</div>
             </div>
-            <div className="col middle prod--page">
-                {productElements}
-            </div>
+            <div className="col middle prod--page">{productElements}</div>
             <div className="col right">
                 <Basket 
-                        customer = {selectedCustomer}
+                        customer = {basketCustomer}
                         basketTotal ={basketTotal}
                         basketProducts = {basketProducts}
                         minusClicked={minusClicked}

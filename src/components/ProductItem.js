@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ProductItem(props) {
 
-    const {title,price,category} = props;
+    const {title,price,category} = props.product
     
     return (
         <div className="card-main" onClick={props.productClicked} >

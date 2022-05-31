@@ -1,6 +1,6 @@
 # What is this ? 
 
-This is a little POS (Point Of Sale) application with customers, products and categories. Main goal for this project is to practice and learn basic understanding on states in React. This is the first app I have created...
+This is a little POS (Point Of Sale) application with customers, products and categories. Main goal for this project is to practice and learn basic understanding on states in React. This is the first app I have created.
 
 # Getting Started with Create React App
 

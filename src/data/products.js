@@ -1,5 +1,10 @@
 const products = [ 
   {
+    "id":-1,
+    "category":"All Products",
+    "products":[]
+  },
+  {
     "id":0,
     "category" : "Meşrubat",
     "products": [

@@ -1,8 +1,19 @@
 import React from 'react';
+import BasketItem from './BasketItem';
 
 export default function Basket(props) {
 
-    const {customer,basketProducts,basketTotal,basketElements} = props
+    const {customer,basketProducts,basketTotal} = props
+
+    /** BASKET LIST */
+    let basketElements = basketProducts.map(product=>
+        <BasketItem 
+            key={product.id}
+            product = {product}
+            minusClicked={()=>props.minusClicked(product)}
+            plusClicked={()=>props.plusClicked(product)}
+        />
+    )
 
     return(
     <div>
