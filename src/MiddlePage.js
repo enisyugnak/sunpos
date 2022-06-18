@@ -99,7 +99,6 @@ export default function MiddlePage(){
     function productClicked(product){
         // add new product to basketProducts or
         // update amount of product in basketProducts
-        //const isExist = basketProducts.filter(item=>item.id===product.id);
 
         const isExist  = basketProducts.find(item=>item.id===product.id);
 
@@ -112,6 +111,7 @@ export default function MiddlePage(){
         updateBasket("SAVE");
     }
 
+    console.log("render")
     /** OPERATIONS */
 
     function updateBasket(op,product){
@@ -147,7 +147,7 @@ export default function MiddlePage(){
                 product.amount = product.amount-1;
                 product.total = product.price * product.amount;
                 setBasketProducts(prevBasketProducts=>[...prevBasketProducts]);
-                setBasketTotal(prevTotal=>prevTotal+product.price)                
+                setBasketTotal(prevTotal=>prevTotal-product.price)                
 
                 break;
 
