@@ -6,14 +6,12 @@ import customers  from "./data/customers"
 
 export default function MiddlePage(){
 
-    const [selectedCategoryId, setSelectedCategoryId] = React.useState(allProductsData[0].id);
-    const selectedCategory = selectedCategoryId != -1 
-            ? getProducts()
-            : getAllProducts();
-
+    const [selectedCategoryId, setSelectedCategoryId] = React.useState(allProductsData[0] && allProductsData[0].id || "");
+    const selectedCategory = getSelectedCategoryProducts();
+    
     const [selectedCustomerId,setSelectedCustomerId] = React.useState(null);
     const selectedCustomer = selectedCustomerId !=null
-            ? customers.find(cust=> cust.id === selectedCustomerId)
+            ? findCustomer()
             : {}
 
     const [basketProducts,setBasketProducts] = React.useState([])
@@ -56,21 +54,32 @@ export default function MiddlePage(){
          </div>
         )
 
+
+        
+    function findCustomer(){
+        return customers.find(cust=> cust.id === selectedCustomerId)
+    }
+
+    /** If No Category selected get all || get category products */
+
+    function getSelectedCategoryProducts(){
+      return  selectedCategoryId != -1 ? getProducts() : getAllProducts();
+    }
+
     function getProducts(){
         return allProductsData.find((c) => c.id === selectedCategoryId)
     }
     
     function getAllProducts(){
         return {    id:-1,
-                    category:"All Products",
-                    products: allProductsData
-                        .map(category=>category.products
-                        .map(item=>({...item,category:category.category})))
-                        .flat()
-                        .sort(compare)
-                }
+            category:"All Products",
+            products: allProductsData
+                .map(category=>category.products
+                .map(item=>({...item,category:category.category})))
+                .flat()
+                .sort(compare)
+        }
     }
-
 
     /** BUTTON ACTIONS */
 
